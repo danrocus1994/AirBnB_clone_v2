@@ -22,10 +22,11 @@ server {
     listen 80 default_server;
     listen [::]:80 default_server;
 
-    server_name localhost;    
+    server_name localhost;
+  
     location /hbnb_static {
         alias /data/web_static/current/;
-	try_files \$uri \$uri/ =404;
+	try_files index.html =404;
     }
 }
 EOF
