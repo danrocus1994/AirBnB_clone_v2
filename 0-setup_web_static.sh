@@ -12,4 +12,4 @@ sudo tee /data/web_static/releases/test/index.html <<EOF
   </body>
 </html>
 EOF
-sudo ln /data/web_static/releases/test/ /data/web_static/current
+sudo ln -s /data/web_static/releases/test/ /data/web_static/current
