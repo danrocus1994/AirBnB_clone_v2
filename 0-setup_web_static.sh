@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # Setup Web servers with Nginx Airbnb Deploy
-sudo apt-get update
-sudo apt-get -y install nginx
-sudo mkdir -p /data/web_static/{shared,releases/test}
-sudo tee /data/web_static/releases/test/index.html <<EOF
+apt-get update
+apt-get -y install nginx
+mkdir -p /data/web_static/{shared,releases/test}
+tee /data/web_static/releases/test/index.html <<EOF
 <html>
   <head>
   </head>
@@ -15,9 +15,9 @@ EOF
 if [ -e /data/web_static/current ];then
     rm /data/web_static/current
 fi
-sudo ln -s /data/web_static/releases/test /data/web_static/current
-sudo chown ubuntu:ubuntu /data/
-sudo tee /etc/nginx/sites-available/default > /dev/null <<EOF                                    
+ln -sf /data/web_static/releases/test /data/web_static/current
+chown ubuntu:ubuntu /data/
+tee /etc/nginx/sites-available/default > /dev/null <<EOF
 server {
     listen 80 default_server;
     listen [::]:80 default_server;
@@ -30,4 +30,4 @@ server {
     }
 }
 EOF
-/etc/init.d/nginx restart
+service nginx restart
