@@ -12,11 +12,8 @@ tee /data/web_static/releases/test/index.html <<EOF
   </body>
 </html>
 EOF
-if [ -e /data/web_static/current ];then
-    rm /data/web_static/current
-fi
-ln -sf /data/web_static/releases/test /data/web_static/current
-chown ubuntu:ubuntu /data/
+ln -sf /data/web_static/releases/test/ /data/web_static/current
+chown ubuntu:ubuntu -R /data
 tee /etc/nginx/sites-available/default > /dev/null <<EOF
 server {
     listen 80 default_server;
@@ -26,7 +23,6 @@ server {
   
     location /hbnb_static {
         alias /data/web_static/current/;
-	try_files index.html =404;
     }
 }
 EOF
