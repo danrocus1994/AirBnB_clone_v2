@@ -67,6 +67,7 @@ def do_clean(number=0):
     """
     clean unnecessary archives
     """
+    number = int(number)
     if number == 0:
         number = 1
     archives = local('ls -tr -1 versions', capture=True)
@@ -76,5 +77,7 @@ def do_clean(number=0):
     rem_archs = run("ls -tr -1 /data/web_static/releases/" +
                     " | grep -v test")
     rem_archs = rem_archs.split('\n')[:-number]
+    rem_archs = [x.rstrip() for x in rem_archs]
+    print(rem_archs)
     for arch in rem_archs:
-        run('rm -rf /data/web_static/releases/' + arch.split('.')[0])
+        run('rm -rf /data/web_static/releases/' + arch)
