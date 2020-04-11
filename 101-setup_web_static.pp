@@ -38,14 +38,14 @@ file{'/data/web_static/current':
 }
 
 file_line{'hbnb_static':
-    ensure   => 'present',
-    path     => '/etc/nginx/sites-available/default',
-    after    => 'server_name localhost;',
-    multiple => false,
-    line     => '	location /hbnb_static {
-    	     alias /data/web_static/current/;
-	     }',
-    require  => Package['nginx']
+    ensure             => 'present',
+    path               => '/etc/nginx/sites-available/default',
+    after              => 'server_name localhost;',
+    match              => 'location /hbnb_static {alias /data/web_static/current/;}',
+    append_on_no_match => true,
+    multiple           => false,
+    line               => 'location /hbnb_static {alias /data/web_static/current/;}',
+    require            => Package['nginx']
 }
 
 service{'nginx':
