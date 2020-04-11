@@ -19,7 +19,7 @@ exec {'install_nginx':
   path    => ['/usr/bin', '/bin'],
   command => 'chwon -R ubuntu:ubuntu /data/'
 }
--> exec {'give_owner_and_group':
+-> exec {'configure_default_nginx':
   path    => ['/usr/bin', '/bin'],
   command => 'sudo sed -i \'43i\\n\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\
   \n\t\t autoindex on;\n\t}\n\' /etc/nginx/sites-available/default',
