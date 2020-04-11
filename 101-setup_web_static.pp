@@ -9,14 +9,14 @@ package{'nginx':
     require => Exec['update'],
 }
 
-file{'/data':
+file{['/data',
+      '/data/web_static',]:
     ensure  => 'directory',
     owner   => 'ubuntu',
     group   => 'ubuntu',
     recurse => true,
 }
-file{['/data/web_static',
-      '/data/web_static/releases',
+file{['/data/web_static/releases',
       '/data/web_static/shared',
       '/data/web_static/releases/test',]:
     ensure  => 'directory',
