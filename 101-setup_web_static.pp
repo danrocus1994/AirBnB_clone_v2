@@ -28,23 +28,24 @@ file{'/data/web_static/releases/test/index.html':
     Holberton School
   </body>
 </html>",
-    require => Package['nginx'],
+    require => File['/data'],
 }
 
 file{'/data/web_static/current':
     ensure  => 'link',
     target  => '/data/web_static/releases/test',
-    require => Package['nginx'],
+    require => File['/data'],
 }
 
 file_line{'hbnb_static':
-    ensure  => 'present',
-    path    => '/etc/nginx/sites-available/default',
-    after   => 'server_name _;',
-    line    => 'location /hbnb_static {
-                    alias /data/web_static_current/;
-                }',
-    require => Package['nginx']
+    ensure   => 'present',
+    path     => '/etc/nginx/sites-available/default',
+    after    => 'server_name localhost;',
+    multiple => false,
+    line     => '	location /hbnb_static {
+    	     alias /data/web_static/current/;
+	     }',
+    require  => Package['nginx']
 }
 
 service{'nginx':
