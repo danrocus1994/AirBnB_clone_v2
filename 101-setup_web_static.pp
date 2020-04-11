@@ -1,46 +1,32 @@
-# Puppet manifest to configure web server
+# configure server using puppet
+exec {'install_nginx':
+  path    => ['/usr/bin', '/bin'],
+  command => 'sudo apt-get -y update; sudo apt-get -y install nginx',
+}
+-> exec {'create_data_dir':
+  path    => ['/usr/bin', '/bin'],
+  command => 'sudo mkdir -p /data/web_static/releases/test/ /data/web_static/shared',
+}
+-> exec {'create_symlink':
+  path    => ['/usr/bin', '/bin'],
+  command => 'sudo ln -sf /data/web_static/releases/test/ /data/web_static/current'
+}
+-> exec {'create_fake_index':
+  path    => ['/usr/bin', '/bin'],
+  command => 'echo "This has been harder than i thought" | sudo tee /data/web_static/releases/test/index.html'
+}
+-> exec {'give_owner_and_group':
+  path    => ['/usr/bin', '/bin'],
+  command => 'chwon -R ubuntu:ubuntu /data/'
+}
+-> exec {'give_owner_and_group':
+  path    => ['/usr/bin', '/bin'],
+  command => 'sudo sed -i \'43i\\n\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\
+  \n\t\t autoindex on;\n\t}\n\' /etc/nginx/sites-available/default',
+}
 
-exec{'update':
-    command => '/usr/bin/apt-get -y update',
-}
--> package{['nginx', 'nginx-common', 'nginx-full',]:
-    ensure  => 'installed',
-    require => Exec['update']
-}
--> file{['/data',
-      '/data/web_static',]:
-    ensure  => directory,
-    owner   => 'ubuntu',
-    group   => 'ubuntu',
-    recurse => true,
-}
--> file{['/data/web_static/releases',
-      '/data/web_static/shared',
-      '/data/web_static/releases/test',]:
-    ensure  => directory,
-}
--> file{'/data/web_static/releases/test/index.html':
-    content => "<html>
-  <head>
-  </head>
-  <body>
-    Holberton School
-  </body>
-</html>",
-}
--> file{'/data/web_static/current':
-    ensure => link,
-    target => '/data/web_static/releases/test/',
-}
--> file_line{'hbnb_static':
-    ensure             => present,
-    path               => '/etc/nginx/sites-available/default',
-    after              => 'server_name localhost;',
-    match              => 'location /hbnb_static {alias /data/web_static/current/;}',
-    append_on_no_match => true,
-    multiple           => false,
-    line               => 'location /hbnb_static {alias /data/web_static/current/;}',
-}
--> service{'nginx':
-    ensure  => running,
+-> exec { 'cmd_7':
+  require => Exec['cmd_6'],
+  path    => '/usr/bin:/bin',
+  command => 'sudo service nginx restart',
 }
