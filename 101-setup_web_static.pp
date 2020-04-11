@@ -3,24 +3,28 @@
 exec{'update':
     command => '/usr/bin/apt-get -y update',
 }
-
-package{'nginx':
+->
+package{['nginx',
+         'nginx-common',
+	 'nginx-full',]:
     ensure  => 'installed',
+    require => Exec['update']
 }
-
+->
 file{['/data',
       '/data/web_static',]:
-    ensure  => 'directory',
+    ensure  => directory,
     owner   => 'ubuntu',
     group   => 'ubuntu',
     recurse => true,
 }
+->
 file{['/data/web_static/releases',
       '/data/web_static/shared',
       '/data/web_static/releases/test',]:
-    ensure  => 'directory',
+    ensure  => directory,
 }
-
+->
 file{'/data/web_static/releases/test/index.html':
     content => "<html>
   <head>
@@ -30,14 +34,14 @@ file{'/data/web_static/releases/test/index.html':
   </body>
 </html>",
 }
-
+->
 file{'/data/web_static/current':
-    ensure  => 'link',
+    ensure  => link,
     target  => '/data/web_static/releases/test/',
 }
-
+->
 file_line{'hbnb_static':
-    ensure             => 'present',
+    ensure             => present,
     path               => '/etc/nginx/sites-available/default',
     after              => 'server_name localhost;',
     match              => 'location /hbnb_static {alias /data/web_static/current/;}',
@@ -45,7 +49,7 @@ file_line{'hbnb_static':
     multiple           => false,
     line               => 'location /hbnb_static {alias /data/web_static/current/;}',
 }
-
+->
 service{'nginx':
     ensure  => running,
 }
