@@ -9,17 +9,17 @@ package{'nginx':
     require => Exec['update'],
 }
 
-file{['/data',
-      '/data/web_static',]:
-    ensure  => 'directory',
+file{['/data/',
+      '/data/web_static/',]:
+    ensure  => 'absent',
     owner   => 'ubuntu',
     group   => 'ubuntu',
     recurse => true,
 }
-file{['/data/web_static/releases',
-      '/data/web_static/shared',
-      '/data/web_static/releases/test',]:
-    ensure  => 'directory',
+file{['/data/web_static/releases/',
+      '/data/web_static/shared/',
+      '/data/web_static/releases/test/',]:
+    ensure  => 'absent',
 }
 
 file{'/data/web_static/releases/test/index.html':
@@ -34,8 +34,8 @@ file{'/data/web_static/releases/test/index.html':
 }
 
 file{'/data/web_static/current':
-    ensure  => 'link',
-    target  => '/data/web_static/releases/test',
+    ensure  => ['link', 'absent'],
+    target  => '/data/web_static/releases/test/',
     require => File['/data'],
 }
 
