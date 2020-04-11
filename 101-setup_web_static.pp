@@ -17,7 +17,7 @@ exec {'install_nginx':
 }
 -> exec {'give_owner_and_group':
   path    => ['/usr/bin', '/bin'],
-  command => 'chwon -R ubuntu:ubuntu /data/'
+  command => 'chown -R ubuntu:ubuntu /data/'
 }
 -> exec {'configure_default_nginx':
   path    => ['/usr/bin', '/bin'],
@@ -26,7 +26,6 @@ exec {'install_nginx':
 }
 
 -> exec { 'cmd_7':
-  require => Exec['cmd_6'],
   path    => '/usr/bin:/bin',
   command => 'sudo service nginx restart',
 }
