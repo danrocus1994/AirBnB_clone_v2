@@ -6,20 +6,19 @@ exec{'update':
 
 package{'nginx':
     ensure  => 'installed',
-    require => Exec['update'],
 }
 
-file{['/data/',
-      '/data/web_static/',]:
-    ensure  => 'absent',
+file{['/data',
+      '/data/web_static',]:
+    ensure  => 'directory',
     owner   => 'ubuntu',
     group   => 'ubuntu',
     recurse => true,
 }
-file{['/data/web_static/releases/',
-      '/data/web_static/shared/',
-      '/data/web_static/releases/test/',]:
-    ensure  => 'absent',
+file{['/data/web_static/releases',
+      '/data/web_static/shared',
+      '/data/web_static/releases/test',]:
+    ensure  => 'directory',
 }
 
 file{'/data/web_static/releases/test/index.html':
@@ -30,13 +29,11 @@ file{'/data/web_static/releases/test/index.html':
     Holberton School
   </body>
 </html>",
-    require => File['/data'],
 }
 
 file{'/data/web_static/current':
-    ensure  => ['link', 'absent'],
+    ensure  => 'link',
     target  => '/data/web_static/releases/test/',
-    require => File['/data'],
 }
 
 file_line{'hbnb_static':
@@ -47,10 +44,8 @@ file_line{'hbnb_static':
     append_on_no_match => true,
     multiple           => false,
     line               => 'location /hbnb_static {alias /data/web_static/current/;}',
-    require            => Package['nginx']
 }
 
 service{'nginx':
     ensure  => running,
-    require => Package['nginx'],
 }
