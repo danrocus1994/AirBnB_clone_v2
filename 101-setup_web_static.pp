@@ -14,19 +14,20 @@ file{['/data',
       '/data/web_static/releases',
       '/data/web_static/shared',
       '/data/web_static/releases/test',]:
-    ensure => 'directory',
-    owner  => 'ubuntu',
-    group  => 'ubuntu',
+    ensure  => 'directory',
+    owner   => 'ubuntu',
+    group   => 'ubuntu',
+    recurse => true,
 }
 
 file{'/data/web_static/releases/test/index.html':
-    content => '<html>
-                     <head>
-                     </head>
-                     <body>
-                         Holberton School
-                     </body>
-                 </html>',
+    content => "<html>
+  <head>
+  </head>
+  <body>
+    Holberton School
+  </body>
+</html>",
     require => Package['nginx'],
 }
 
