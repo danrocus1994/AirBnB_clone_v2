@@ -11,7 +11,7 @@ app = Flask(__name__, root_path='')
 
 
 @app.route('/python/<text>', methods=['GET'], strict_slashes=False)
-def python_route(text):
+def python_route(text="is cool"):
     return "Python " + text.replace("_", " ")
 
 
