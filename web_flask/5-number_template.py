@@ -17,7 +17,7 @@ def number_template_route(n):
     """
     Routing the main path
     """
-    template = render_template("5-number.html", number="Number: {}".format(n))
+    template = render_template("5-number.html", number=n)
     return Markup(template)
 
 
