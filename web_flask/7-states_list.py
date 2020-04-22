@@ -17,7 +17,6 @@ def close_storage(uknown):
     """
     apply a close to the storage engine to reload
     """
-    print(uknown, type(uknown))
     storage.close()
 
 
@@ -30,7 +29,6 @@ def states_list():
     resp = {}
 
     for state_id, state in states.items():
-        print(state.name)
         resp[state_id.split('.')[1]] = state.name
     states = []
     for key in sorted(resp, key=resp.get, reverse=False):
