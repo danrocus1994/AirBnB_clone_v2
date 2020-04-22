@@ -1,1 +1,1 @@
-Configuring the flask application server
+Flask application server configuration

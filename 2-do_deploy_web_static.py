@@ -51,7 +51,7 @@ def do_deploy(archive_path):
         run('rm -rf ' + data_path + 'web_static')
         run('rm -rf /data/web_static/current')
         run('ln -s ' + data_path + ' /data/web_static/current')
-    except SystemExit:
+    except:
         return False
     finally:
         return True
