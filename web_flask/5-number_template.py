@@ -6,6 +6,7 @@ This module inits a Flask application server
 
 from flask import Flask
 from flask import render_template
+from flask import Markup
 
 
 app = Flask(__name__, root_path='')
@@ -13,27 +14,43 @@ app = Flask(__name__, root_path='')
 
 @app.route('/number_template/<int:n>', methods=['GET'], strict_slashes=False)
 def number_template_route(n):
-    return render_template("5-number.html", number="Number: {}".format(n))
+    """
+    Routing the main path
+    """
+    template = render_template("5-number.html", number="Number: {}".format(n))
+    return Markup(template)
 
 
 @app.route('/number/<int:n>', methods=['GET'], strict_slashes=False)
 def number_route(n):
+    """
+    Routing the main path
+    """
     return "{} is a number".format(n)
 
 
 @app.route('/python', methods=['GET'], strict_slashes=False)
 @app.route('/python/<text>', methods=['GET'], strict_slashes=False)
 def python_route(text="is_cool"):
+    """
+    Routing the main path
+    """
     return "Python " + text.replace("_", " ")
 
 
 @app.route('/c/<text>', methods=['GET'], strict_slashes=False)
 def c_route(text):
+    """
+    Routing the main path
+    """
     return "C " + text.replace("_", " ")
 
 
 @app.route('/hbnb', methods=['GET'], strict_slashes=False)
 def hbnb():
+    """
+    Routing the main path
+    """
     return "HBNB"
 
 
