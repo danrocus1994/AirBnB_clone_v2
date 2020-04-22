@@ -31,16 +31,13 @@ def states_list():
     #print(dir(states[0]))
     #comm = input(">>> ")
     resp = {}
-    
+
     for state_id, state in states.items():
         print(state.name)
         resp[state_id.split('.')[1]] = state.name
     states = []
     for key in sorted(resp, key=resp.get, reverse=False):
         states.append((key, resp[key]))
-    
-    
-    #    print(eval("state."+comm))
     return render_template("7-states_list.html", states=states)
 
 
