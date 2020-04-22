@@ -10,8 +10,9 @@ from flask import Flask
 app = Flask(__name__, root_path='')
 
 
+@app.route('/python', methods=['GET'], strict_slashes=False)
 @app.route('/python/<text>', methods=['GET'], strict_slashes=False)
-def python_route(text="is cool"):
+def python_route(text="is_cool"):
     return "Python " + text.replace("_", " ")
 
 
