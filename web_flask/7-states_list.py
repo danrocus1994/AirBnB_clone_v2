@@ -27,9 +27,6 @@ def states_list():
     List all state in db
     """
     states = storage.all(State)
-    #print(dir(states.items()))
-    #print(dir(states[0]))
-    #comm = input(">>> ")
     resp = {}
 
     for state_id, state in states.items():
