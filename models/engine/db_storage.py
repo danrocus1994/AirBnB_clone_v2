@@ -86,3 +86,9 @@ class DBStorage:
         call remove() for session
         """
         self.__session.close()
+        
+    def get_user(self, _id):
+        """
+        query a user by id
+        """
+        return self.__session.query(User).filter_by(id=_id).first()

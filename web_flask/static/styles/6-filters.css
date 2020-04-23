@@ -74,7 +74,7 @@ button:hover {
 	padding-left: 0;
 }
 .popover h2 {
-	margin-top: 24px;
+	margin-top: 32px;
 	margin-left: 16px;
 	font-size: 18px;
 }
@@ -82,7 +82,7 @@ button:hover {
 .city {
 	font-size: 14px;
 	padding-left: 40px;
-	margin-top: 10px;
+	margin-top: 16px;
 
 }
 .amenities:hover .popover,
