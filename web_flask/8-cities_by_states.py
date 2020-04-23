@@ -51,19 +51,14 @@ def cities_by_states_list():
     List all Cities in db
     """
     states = storage.all(State)
-
-    #print(states)
-    print("Cities:\n\n")
     resp = []
     for state_id, state in states.items():
         resp.append([state_id.split('.')[1], state.name, state.cities])
-    #print(resp)
     states = []
     for el in sorted(resp, key=get_name, reverse=False):
         cities = sorted(el[2], key=get_cities, reverse=False)
         cities = [{'name': citi.name, 'id': citi.id} for citi in cities]
         states.append((el[0], el[1], cities))
-    print(states)
     return render_template("8-cities_by_states.html", states=states)
 
 
