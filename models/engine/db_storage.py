@@ -85,7 +85,4 @@ class DBStorage:
         """
         call remove() for session
         """
-        if 'remove' in dir(self.__session):
-            self.__session.remove()
-        else:
-            self.__session.close()
+        self.__session.close()
